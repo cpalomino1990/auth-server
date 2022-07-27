@@ -8,7 +8,7 @@ require ('dotenv').config();
 
 const { dbConnection } = require('./db/config');
 const marvelService  = require('./service/marvel');
-const {createRoles} =require('./libs/inicialSetup')
+
 
 
 

@@ -1,5 +1,5 @@
 
-const { Schema, model, timestamps } = require("mongoose");
+const { Schema, model } = require("mongoose");
 
 const ActividadSchema =Schema({
 
