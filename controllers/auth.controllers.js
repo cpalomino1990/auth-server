@@ -34,7 +34,12 @@ const crearUsuario = async(req, res = response)=>{
         const salt = bcrypt.genSaltSync();
         dbUser.password = bcrypt.hashSync(password, salt);
 
-      
+        // Generar JWT
+        const token = await generarJWT(dbUser.id, name)
+
+        // crear usuario DB
+
+        const db = await dbUser.save();
       
       
         
@@ -47,7 +52,7 @@ const crearUsuario = async(req, res = response)=>{
             ok: true,
             uid:dbUser.id,
             name,
-            
+            token
 
 
         })
@@ -160,8 +165,14 @@ async function loginUser(req, res = response) {
             });
         }
 
-       
-       
+        //Genarar JWT
+        const token = await generarJWT(dbUser.id, dbUser.name);
+
+         // Generar acividad.
+        const dbActidivad = await Actividad.create({ actividad: 'Login', username: dbUser.email });
+         console.log(dbActidivad.createdAt)
+        dbActidivad.save()
+
        
 
         // Respuesta
@@ -169,7 +180,8 @@ async function loginUser(req, res = response) {
             ok: true,
             uid: dbUser.id,
             name: dbUser.name,
-            
+            token,
+            ultimo_logueo: dbActidivad.createdAt
         });
 
 
