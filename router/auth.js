@@ -1,6 +1,6 @@
 const {Router} = require('express');
 const { check } = require('express-validator');
-
+const { crearUsuario, loginUser, renewUser, updateUser, deleteUser } = require('../controllers/auth.controllers');
 const { validarCampos } = require('../middlewares/validar-capos');
 const { validarToken } = require('../middlewares/validar-token');
 
@@ -29,6 +29,10 @@ router.post('/',[
 router.get('/renew', validarToken, renewUser),
 
 // actualizar user
+
+router.put('/:id', updateUser),
+
+router.delete('/:id', deleteUser)
 
 
 
